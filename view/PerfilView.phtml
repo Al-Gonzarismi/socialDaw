@@ -1,7 +1,22 @@
 <?php global $URL_PATH;?>
 <?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
 <?php \dawfony\Ti::startBlock("content"); ?>
-<h1>Posts de <?=$login?>: </h1>
+<h2><?= $usuario->login ?></h2>
+<h5><?= $usuario->nombre ?></h5>
+<p>
+        <i class="fa fa-users"></i>
+        <a href=#>Siguiendo</a> <span class="badge badge-secondary"><?= $siguiendo["cuenta"] ?></span>
+        - <a href=#>Seguidores</a> <span class="badge badge-secondary"><?= $seguidores["cuenta"] ?></span>
+</p>
+<?php if (isset($_SESSION["login"]) && strtolower($_SESSION["login"]) != strtolower($usuario->login)) { 
+        if ($loSigues) {?>
+        <a href="<?=$URL_PATH.'/Perfil/'.$usuario->login.'/noseguir'?>" class="btn btn-secondary btn-sm">
+        Dejar de seguir a <?=$usuario->login?></a>
+<?php } else {?>
+        <a href="<?=$URL_PATH.'/Perfil/'.$usuario->login.'/seguir'?>" class="btn btn-secondary btn-sm">
+        Seguir a <?=$usuario->login?></a>
+<?php }} ?>
+<h3>Posts: </h3>
 <hr>
 <div class="row">
 <?php foreach ($posts as $post) { ?>

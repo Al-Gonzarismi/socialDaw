@@ -25,7 +25,44 @@ class OrmUsuario
     public function obtenerUsuario($login) {
         $bd = Klasto::getInstance();
         $params = [$login];
-        $sql = "SELECT nombre, email FROM usuario WHERE login = ?";
+        $sql = "SELECT login, rol_id, nombre, email FROM usuario WHERE login = ?";
+        return $bd->queryOne($sql, $params, "model\Usuario");
+    }
+
+    public function obtenerSeguidores($login) {
+        $bd = Klasto::getInstance();
+        $params = [$login];
+        $sql = "SELECT COUNT(usuario_login_seguidor) as cuenta FROM sigue WHERE usuario_login_seguido = ?";
+        return $bd->queryOne($sql, $params);
+    }
+
+    public function obtenerSeguidos($login){
+        $bd = Klasto::getInstance();
+        $params = [$login];
+        $sql = "SELECT COUNT(usuario_login_seguido) as cuenta FROM sigue WHERE usuario_login_seguidor = ?";
+        return $bd->queryOne($sql, $params);
+    }
+
+    public function loSigues($logUsuario, $logPerfil) {
+        $bd = Klasto::getInstance();
+        $params = [$logUsuario, $logPerfil]; 
+        $sql = "SELECT usuario_login_seguidor, usuario_login_seguido FROM sigue WHERE 
+        usuario_login_seguidor = ? AND usuario_login_seguido = ?"; 
+        return count($bd->query($sql, $params));
+    }
+
+    public function seguir($login, $loginASeguir) {
+        $bd = Klasto::getInstance();
+        $params = [$login, $loginASeguir];
+        $sql = "INSERT INTO sigue(usuario_login_seguidor, usuario_login_seguido) VALUES(?,?)";
+        $bd->execute($sql, $params);        
+    }
+
+    public function dejarDeSeguir($login, $loginADejar) {
+        $bd = Klasto::getInstance();
+        $params = [$login, $loginADejar];
+        $sql = "DELETE FROM sigue WHERE usuario_login_seguidor=? AND usuario_login_seguido=?";
+        $bd->execute($sql, $params);
     }
 
 }
