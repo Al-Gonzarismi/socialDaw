@@ -1,0 +1,43 @@
+<?php global $URL_PATH?>
+<?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
+<?php \dawfony\Ti::startBlock("content"); ?>
+<?php if (isset($data['filasInsertadas'])) {
+        if ($data['filasInsertadas'] == 1) { ?>
+<div class="alert alert-success" role="alert">
+  Enhorabuena! Su usuario ha sido registrado! Logueate para continuar.
+</div>
+<?php }}?>
+Lo último:              
+<div class="row">
+<?php foreach ($posts as $post) { ?>
+	<div class="col-md-2">
+        <img src="<?=$URL_PATH?>/media/<?=$post->foto?>" alt="<?=$post->foto?>" class="img-thumbnail">
+	</div>
+	<div class="col-md-8">
+        <p>
+        <?=$post->resumen?>
+        </p>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-info">Leer Más</button>
+            </div>
+            <div class="col-md-4">
+            
+            </div>
+            <div class="col-md-4">
+            
+            </div>
+        </div>
+	</div>
+	<div class="col-md-2">
+        <h3>Por <a href="Perfil/<?=$post->usuario_login?>"><?=$post->usuario_login?></a> en <?=$post->fecha?> <?=$post->categoria_post_id?></h3>
+        </div>
+<?php } ?>
+<?php if (isset($_SESSION["rol"])) {?>
+<form action="<?=$URL_PATH?>/AddPost" method="GET">
+<button type="submit" class="btn btn-primary rounded-circle fixed-bottom" style="height: 120px; width: 100px; left: 85%;">ADD</button>
+</form>
+<?php } ?>
+</div>
+<?php \dawfony\Ti::endBlock(); ?>
+<?php \dawfony\Ti::endExtend(); ?>

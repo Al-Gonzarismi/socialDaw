@@ -1,0 +1,9 @@
+Añadir Posts.
+Añadir lista de seguidores a Perfil.
+El rollo de los likes. Con Fetch.
+Comprobaciones con javascript. (onSubmit)
+En mi perfil comprobar si coincide login con el usuario del perfil.
+Insertar un POST. Agregar funcionalidad al boton add. ¡comprobar si esta logueado por ejemplo a la hora de añadir un post!
+Capturar excepciones en el dispatch.
+Que se vea bien en tu movil, laptop.
+Borrar un usuario... conn->autoload(false); En el Klasto: startTransaction() y luego.. commit();
