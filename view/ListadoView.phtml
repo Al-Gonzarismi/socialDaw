@@ -1,12 +1,6 @@
 <?php global $URL_PATH?>
 <?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
 <?php \dawfony\Ti::startBlock("content"); ?>
-<?php if (isset($data['filasInsertadas'])) {
-        if ($data['filasInsertadas'] == 1) { ?>
-<div class="alert alert-success" role="alert">
-  Enhorabuena! Su usuario ha sido registrado! Logueate para continuar.
-</div>
-<?php }}?>
 Lo último:              
 <div class="row">
 <?php foreach ($posts as $post) { ?>

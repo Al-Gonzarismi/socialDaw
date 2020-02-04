@@ -1,5 +1,11 @@
 <?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
 <?php \dawfony\Ti::startBlock("content"); ?>
+<?php if (isset($data['filasInsertadas'])) {
+        if ($data['filasInsertadas'] == 1) { ?>
+<div class="alert alert-success" role="alert">
+  Enhorabuena! Su usuario ha sido registrado! Logueate para continuar.
+</div>
+<?php }} else { ?>
 <form action="Registrate" method="POST">
   <div class="form-group">
     <label for="login">Login:</label>
@@ -23,5 +29,6 @@
   </div>
   <button type="submit" class="btn btn-primary">Registrarte!</button>
 </form>
+<?php } ?>
 <?php \dawfony\Ti::endBlock(); ?>
 <?php \dawfony\Ti::endExtend(); ?>

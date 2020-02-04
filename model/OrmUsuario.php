@@ -1,7 +1,7 @@
 <?php
 namespace model;
 use \dawfony\Klasto;
-class OrmSocialDaw
+class OrmUsuario
 {
     public function registrarUsuario($usuario) {
         $bd = Klasto::getInstance();
@@ -21,13 +21,6 @@ class OrmSocialDaw
         $sql = "SELECT password FROM usuario WHERE login = ?";
         return $bd->queryOne($sql, $params);
     }
-    
-    public function obtenerTodosLosPosts() {
-        $bd = Klasto::getInstance();
-        $params = [];
-        $sql = "SELECT fecha, resumen, texto, foto, categoria_post_id, usuario_login FROM post";
-        return $bd->query($sql, $params, "model\Post");
-    }
 
     public function obtenerUsuario($login) {
         $bd = Klasto::getInstance();
@@ -35,10 +28,4 @@ class OrmSocialDaw
         $sql = "SELECT nombre, email FROM usuario WHERE login = ?";
     }
 
-    public function obtenerPostsPorUsuario($login) {
-        $bd = Klasto::getInstance();
-        $params = [$login];
-        $sql = "SELECT fecha, resumen, texto, foto, categoria_post_id, usuario_login FROM post WHERE usuario_login = ?";
-        return $bd->query($sql, $params, "model\Post");
-    }
 }

@@ -1,11 +1,11 @@
 <?php
 namespace controller;
-use \model\OrmSocialDaw;
+use \model\OrmPost;
 use \model\Post;
 class PostController extends Controller {
     public function listado() {
         $title="Listado";
-        $orm = new OrmSocialDaw;
+        $orm = new OrmPost;
         $posts = $orm->obtenerTodosLosPosts();
         echo \dawfony\Ti::render("view/ListadoView.phtml", compact('title', 'posts'));
     }

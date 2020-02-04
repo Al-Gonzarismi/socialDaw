@@ -1,7 +1,8 @@
 <?php
 namespace controller;
 use \model\Usuario;
-use \model\OrmSocialDaw;
+use \model\OrmUsuario;
+use \model\OrmPost;
 class UsuarioController extends Controller {
 
     public function registro() {
@@ -15,10 +16,10 @@ class UsuarioController extends Controller {
         $usuario->contrasenha = password_hash($_POST["contrasenha"], PASSWORD_DEFAULT);
         $usuario->nombre = $_POST["nombre"];
         $usuario->email = $_POST["email"];
-        $orm = new OrmSocialDaw;
+        $orm = new OrmUsuario;
         $filasInsertadas = $orm->registrarUsuario($usuario);
-        $title = "Listado";
-        echo \dawfony\Ti::render("view/ListadoView.phtml", compact('title', 'filasInsertadas'));
+        $title = "Registro";
+        echo \dawfony\Ti::render("view/RegistroView.phtml", compact('title', 'filasInsertadas'));
     }
 
     public function login() {
@@ -29,7 +30,7 @@ class UsuarioController extends Controller {
     public function comprobarLogin() {
         global $URL_PATH;
         $login = $_POST["login"];
-        $orm = new OrmSocialDaw;
+        $orm = new OrmUsuario;
         $contrasenhaValida = $orm->recibirContrasenha($login);
         if (password_verify($_POST["contrasenha"], $contrasenhaValida["password"])) {
             $title = "Listado";
@@ -52,7 +53,7 @@ class UsuarioController extends Controller {
 
     public function perfil($login) {
         $title = "Perfil de $login";
-        $orm = new OrmSocialDaw;
+        $orm = new OrmPost;
         $posts = $orm->obtenerPostsPorUsuario($login);
         echo \dawfony\Ti::render("view/PerfilView.phtml", compact('title', 'login', 'posts'));
     }
