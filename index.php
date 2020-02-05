@@ -31,6 +31,10 @@ Macaw::get($URL_PATH . '/Perfil/(:any)/noseguir', "controller\UsuarioController@
 
 Macaw::post($URL_PATH . '/Post/(:num)/comentario', "controller\ComentarioController@nuevoComentario");
 
+Macaw::get($URL_PATH . '/Post/(:any)', "controller\PostController@visualizarPost");
+
+Macaw::get($URL_PATH . '/Api/Like/(:any)', "controller\ApiController@likeClicked");
+
 Macaw::error(function() {
   echo '404 :: Not Found';
 });

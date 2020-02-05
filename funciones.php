@@ -4,7 +4,7 @@ function sanitizar($str) {
 }
 function validarImagen($img) {
     global $URL_PATH;
-    $target_dir = "$URL_PATH/media/";
+    $target_dir = "media/";
     $target_file = $target_dir . basename($img["name"]);
     $extension = substr($img["name"], strrpos($img["name"], "."));
     $tipoImagen = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

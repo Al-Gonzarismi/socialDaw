@@ -10,3 +10,5 @@ Borrar un usuario... conn->autoload(false); En el Klasto: startTransaction() y l
 ------------
 comentarios a los Posts
 Seguidores
+LIKE Y POST (GONZA)
+COMENTARIOS Y SEGUIDORES (JORGE)
