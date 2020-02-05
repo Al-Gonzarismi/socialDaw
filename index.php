@@ -29,6 +29,8 @@ Macaw::get($URL_PATH . '/Perfil/(:any)/seguir', "controller\UsuarioController@se
 
 Macaw::get($URL_PATH . '/Perfil/(:any)/noseguir', "controller\UsuarioController@dejarSeguirUsuario");
 
+Macaw::post($URL_PATH . '/Post/(:num)/comentario', "controller\ComentarioController@nuevoComentario");
+
 Macaw::error(function() {
   echo '404 :: Not Found';
 });

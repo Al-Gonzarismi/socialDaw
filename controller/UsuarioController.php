@@ -56,9 +56,9 @@ class UsuarioController extends Controller {
         $ormPost = new OrmPost;
         $ormUsuario = new OrmUsuario;
         $posts = $ormPost->obtenerPostsPorUsuario($login);
-        /*foreach ($posts as $posts) {
+        foreach ($posts as $post) {
             $post->categoria = $ormPost->obtenerCategoria($post->categoria_post_id)["descripcion"];
-        }*/
+        }
         $usuario = $ormUsuario->obtenerUsuario($login);
         $seguidores = $ormUsuario->obtenerSeguidores($login);
         $siguiendo = $ormUsuario->obtenerSeguidos($login);
