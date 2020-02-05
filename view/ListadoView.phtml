@@ -2,8 +2,9 @@
 <?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
 <?php \dawfony\Ti::startBlock("content"); ?>
 Lo último:              
-<div class="row">
+
 <?php foreach ($posts as $post) { ?>
+<div class="row">
 	<div class="col-md-2">
         <img src="<?=$URL_PATH?>/media/<?=$post->foto?>" alt="<?=$post->foto?>" class="img-thumbnail">
 	</div>
@@ -12,26 +13,41 @@ Lo último:
         <?=$post->resumen?>
         </p>
         <div class="row">
-            <div class="col-md-4">
-                <button type="button" class="btn btn-info">Leer Más</button>
+            <div class="col-md-8">
+                <a href="<?=$URL_PATH?>/Post/<?=$post->id?>" type="button" class="btn btn-info text-white">Leer Más</a>
             </div>
-            <div class="col-md-4">
-            
+            <div class="col-md-2">
+                <?php /*Pasamos el id del post al evento de javascript. Enlace solo si usuario logueado*/ ?>
+                <?php if (isset($_SESSION["login"])) : ?>
+                        <a href="javascript:void(0)" onclick="likeClicked(<?= $post->id ?>)">
+                <?php endif ?>
+                <?php /* El atributo id del elemento del corazón tiene como sufijo el id del post */ ?>
+                                <i id="likecorazon<?= $post->id ?>" class="fa fa-heart<?= ($post->like ? " text-danger" : "") ?>"></i>
+                <?php if (isset($_SESSION["login"])) : ?>
+                        </a>
+                <?php endif ?>
+                <?php /* Lo mismo para el elemento que contiene la cuenta de likes:
+                             su atributo id contiene como sufijo el id del post */ ?>
+                <span id="likecontador<?= $post->id ?>">
+                <?= $post->numLikes ?>
+                </span>
             </div>
-            <div class="col-md-4">
-            
+            <div class="col-md-2">
+                <a href="#comentarios"><i class="fa fa-comments"></i> <?= $post->numComentarios ?></a>
             </div>
         </div>
 	</div>
 	<div class="col-md-2">
-        <h3>Por <a href="Perfil/<?=$post->usuario_login?>"><?=$post->usuario_login?></a> en <?=$post->fecha?> <?=$post->categoria_post_id?></h3>
+        <h3>Por <a href="Perfil/<?=$post->usuario_login?>"><?=$post->usuario_login?></a> en <?=$post->fecha?> <?=$post->categoria ?></h3>
         </div>
+</div>
+<hr>      
 <?php } ?>
 <?php if (isset($_SESSION["rol"])) {?>
 <form action="<?=$URL_PATH?>/AddPost" method="GET">
 <button type="submit" class="btn btn-primary rounded-circle fixed-bottom" style="height: 120px; width: 100px; left: 85%;">ADD</button>
 </form>
 <?php } ?>
-</div>
+<script src="<?= $URL_PATH ?>/js/like.js"></script>
 <?php \dawfony\Ti::endBlock(); ?>
 <?php \dawfony\Ti::endExtend(); ?>

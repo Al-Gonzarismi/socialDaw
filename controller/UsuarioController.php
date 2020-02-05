@@ -48,7 +48,6 @@ class UsuarioController extends Controller {
         unset($_SESSION["rol"]);
         unset($_SESSION["login"]);
         header("Location: $URL_PATH/");
-
     }
 
     public function perfil($login) {
