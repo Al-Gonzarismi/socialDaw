@@ -35,6 +35,10 @@ Macaw::get($URL_PATH . '/Post/(:any)', "controller\PostController@visualizarPost
 
 Macaw::get($URL_PATH . '/Api/Like/(:any)', "controller\ApiController@likeClicked");
 
+Macaw::get($URL_PATH . '/Admin/borrarusuario/(:any)', "controller\AdminController@borrarUsuario");
+
+Macaw::get($URL_PATH . '/Admin/borrarpost/(:any)', "controller\AdminController@borrarPost");
+
 Macaw::error(function() {
   echo '404 :: Not Found';
 });

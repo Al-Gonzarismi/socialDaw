@@ -1,4 +1,4 @@
-<?php global $URL_PATH?>
+<?php global $URL_PATH;?>
 <?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
 <?php \dawfony\Ti::startBlock("content"); ?>
 <div class="row m-2">
@@ -32,6 +32,10 @@
         <?= $post->texto; ?>
     </div>
 </div>
+<?php if ($_SESSION["rol"] == 1) :?>
+<a href="<?=$URL_PATH?>/Admin/borrarpost/<?=$post->id?>" class="btn btn-danger btn-sm">
+Eliminar Post</a>
+<?php endif ?>
 <hr>
 <?php require "Comentarios.phtml"; ?>
 <script src="<?= $URL_PATH ?>/js/like.js"></script>

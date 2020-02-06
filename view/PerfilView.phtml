@@ -3,12 +3,17 @@
 <?php \dawfony\Ti::startBlock("content"); ?>
 <h2><?= $usuario->login ?></h2>
 <h5><?= $usuario->nombre ?></h5>
+<?php $comprobacion = strtolower($_SESSION["login"]) != strtolower($usuario->login);?>
+<?php if ($_SESSION["rol"] == 1 && $comprobacion) :?>
+<a href="<?=$URL_PATH?>/Admin/borrarusuario/<?=$usuario->login?>" class="btn btn-danger btn-sm">
+Eliminar Usuario</a>
+<?php endif ?>
 <p>
         <i class="fa fa-users"></i>
         <a href=#>Siguiendo</a> <span class="badge badge-secondary"><?= $siguiendo["cuenta"] ?></span>
         - <a href=#>Seguidores</a> <span class="badge badge-secondary"><?= $seguidores["cuenta"] ?></span>
 </p>
-<?php if (isset($_SESSION["login"]) && strtolower($_SESSION["login"]) != strtolower($usuario->login)) { 
+<?php if (isset($_SESSION["login"]) && $comprobacion) { 
         if ($loSigues) {?>
         <a href="<?=$URL_PATH.'/Perfil/'.$usuario->login.'/noseguir'?>" class="btn btn-secondary btn-sm">
         Dejar de seguir a <?=$usuario->login?></a>
