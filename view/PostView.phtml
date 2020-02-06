@@ -31,8 +31,9 @@
     <div class="container">
         <?= $post->texto; ?>
     </div>
-    <?php require "Comentarios.phtml"; ?>
 </div>
+<hr>
+<?php require "Comentarios.phtml"; ?>
 <script src="<?= $URL_PATH ?>/js/like.js"></script>
 <?php \dawfony\Ti::endBlock(); ?>
 <?php \dawfony\Ti::endExtend(); ?>

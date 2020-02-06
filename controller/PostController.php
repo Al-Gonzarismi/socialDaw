@@ -1,7 +1,7 @@
 <?php
 namespace controller;
 use \model\OrmPost;
-//use \model\OrmComentarios;
+use \model\OrmComentarios;
 use \model\Post;
 class PostController extends Controller {
     public function listado() {
@@ -65,8 +65,8 @@ class PostController extends Controller {
         }
         $post->numLikes = $orm->contarLikes($post->id);
         $orm = new OrmComentarios;
-        $comentario = $orm->obtenerComentariosDePost($post->id);
+        $comentarios = $orm->obtenerComentariosDePost($post->id);
         $post->numComentarios = $orm->cuentaComentarios($post->id);
-        echo \dawfony\Ti::render("view/PostView.phtml", compact('post'));
+        echo \dawfony\Ti::render("view/PostView.phtml", compact('post', 'comentarios'));
     }
 }    
