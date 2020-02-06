@@ -1,4 +1,4 @@
-<?php global $URL_PATH?>
+<?php global $URL_PATH;?>
 <?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
 <?php \dawfony\Ti::startBlock("content"); ?>
 <div class="row m-2">
@@ -27,13 +27,17 @@
             en <em><?= $post->categoria ?></em>
             el <?= $post->fecha ?>
         </div>
-    </div>
-    <div class="container">
+        <hr>
+        <div>
         <?= $post->texto; ?>
+        </div>
     </div>
 </div>
 <hr>
 <?php require "Comentarios.phtml"; ?>
+<script>
+var URL_PATH = '<?= $URL_PATH ?>'
+</script>
 <script src="<?= $URL_PATH ?>/js/like.js"></script>
 <?php \dawfony\Ti::endBlock(); ?>
 <?php \dawfony\Ti::endExtend(); ?>

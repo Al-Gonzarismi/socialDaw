@@ -1,8 +1,6 @@
 <?php global $URL_PATH?>
 <?php \dawfony\Ti::extend("view/MainView.phtml"); ?>
-<?php \dawfony\Ti::startBlock("content"); ?>
-Lo último:              
-
+<?php \dawfony\Ti::startBlock("content"); ?>             
 <?php foreach ($posts as $post) { ?>
 <div class="row">
 	<div class="col-md-2">
@@ -38,7 +36,7 @@ Lo último:
         </div>
 	</div>
 	<div class="col-md-2">
-        <h3>Por <a href="Perfil/<?=$post->usuario_login?>"><?=$post->usuario_login?></a> en <?=$post->fecha?> <?=$post->categoria ?></h3>
+        <h3>Por <a href="<?= $URL_PATH ?>/Perfil/<?=$post->usuario_login?>"><?=$post->usuario_login?></a> en <?=$post->fecha?> <?=$post->categoria ?></h3>
         </div>
 </div>
 <hr>      
@@ -48,6 +46,21 @@ Lo último:
 <button type="submit" class="btn btn-primary rounded-circle fixed-bottom" style="height: 120px; width: 100px; left: 85%;">ADD</button>
 </form>
 <?php } ?>
+<?php if ($numpaginas > 0) : ?>
+<nav aria-label="Page navigation" class="mt-2">
+    <ul class="pagination">
+        <li class="page-item<?=($page - 1 < 1 ? " disabled":"")?>">
+            <a class="page-link" href="<?= $ruta . ($page - 1) ?>" tabindex="-1">Anterior</a>
+        </li>
+        <li class="page-item disabled">
+        <a class="page-link" href="#"><?= $page ?></a>
+    </li>
+        <li class="page-item<?=($page + 1 > $numpaginas ? " disabled":"")?>" >
+            <a class="page-link" href="<?= $ruta . ($page + 1) ?>">Siguiente</a>
+        </li>
+    </ul>
+</nav>
+<?php endif; ?>
 <script src="<?= $URL_PATH ?>/js/like.js"></script>
 <?php \dawfony\Ti::endBlock(); ?>
 <?php \dawfony\Ti::endExtend(); ?>

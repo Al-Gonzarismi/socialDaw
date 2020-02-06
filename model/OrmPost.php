@@ -3,17 +3,54 @@ namespace model;
 use \dawfony\Klasto;
 class OrmPost
 {
-    public function obtenerTodosLosPosts() {
-        $bd = Klasto::getInstance();
-        $params = [];
-        $sql = "SELECT id, fecha, resumen, texto, foto, categoria_post_id, usuario_login FROM post";
-        return $bd->query($sql, $params, "model\Post");
+    public function obtenerTodosLosPosts($page) {
+        global $config;
+        $limit = $config["post_per_page"];
+        $offset = ($page -1) * $limit;
+        $posts = Klasto::getInstance()->query(
+            "SELECT `id`, `fecha`, `resumen`, `texto`, `foto`, `categoria_post_id`, `usuario_login`"
+                . " FROM `post`"
+                . " ORDER BY `fecha` DESC"
+                . " LIMIT $limit OFFSET $offset",
+            [],
+            "model\Post"
+        );
+        return $posts;
+    }
+
+    public function contarTodosLosPosts() {
+        return Klasto::getInstance()->queryOne("SELECT count(*) as cuenta FROM `post`")["cuenta"];
+    }
+
+    public function obtenerPostSeguidos($login, $page) {
+        global $config;
+        $limit = $config["post_per_page"];
+        $offset = ($page -1) * $limit;
+        $posts = Klasto::getInstance()->query(
+            "SELECT `id`, `fecha`, `resumen`, `texto`, `foto`, `categoria_post_id`, `usuario_login`"
+                . " FROM `post` JOIN `sigue` ON post.usuario_login = sigue.usuario_login_seguido"
+                . " WHERE sigue.usuario_login_seguidor = ?"
+                . " ORDER BY `fecha` DESC"
+                . " LIMIT $limit OFFSET $offset",
+            [$login],
+            "model\Post"
+        );
+        return $posts;
+    }
+
+    public function contarPostsSeguidos($login) {
+        return Klasto::getInstance()->queryOne(
+            "SELECT count(*) as cuenta"
+                . " FROM `post` JOIN `sigue` ON post.usuario_login = sigue.usuario_login_seguido"
+                . " WHERE sigue.usuario_login_seguidor = ?",
+            [$login]
+        )["cuenta"];
     }
 
     public function obtenerPostsPorUsuario($login) {
         $bd = Klasto::getInstance();
         $params = [$login];
-        $sql = "SELECT id, fecha, resumen, texto, foto, categoria_post_id, usuario_login FROM post WHERE usuario_login = ?";
+        $sql = "SELECT id, fecha, resumen, texto, foto, categoria_post_id, usuario_login FROM post WHERE usuario_login = ? ORDER BY `fecha` DESC";
         return $bd->query($sql, $params, "model\Post");
     }
 
@@ -27,7 +64,7 @@ class OrmPost
     public function obtenerPostsPorId($id) {
         $bd = Klasto::getInstance();
         $params = [$id];
-        $sql = "SELECT id, fecha, resumen, texto, foto, categoria_post_id, usuario_login FROM post WHERE id = ?";
+        $sql = "SELECT id, fecha, resumen, texto, foto, categoria_post_id, usuario_login FROM post WHERE id = ? ORDER BY `fecha` DESC";
         return $bd->queryOne($sql, $params, "model\Post");
     }
 

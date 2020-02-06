@@ -9,6 +9,8 @@ session_start();
 
 Macaw::get($URL_PATH . '/', "controller\PostController@listado");
 
+Macaw::get($URL_PATH . '/Listado/Pag/(:any)', "controller\PostController@listado");
+
 Macaw::get($URL_PATH . '/Registrate', "controller\UsuarioController@registro");
 
 Macaw::post($URL_PATH . '/Registrate', "controller\UsuarioController@comprobarRegistro");
@@ -24,6 +26,10 @@ Macaw::get($URL_PATH . '/Perfil/(:any)', "controller\UsuarioController@perfil");
 Macaw::get($URL_PATH . '/AddPost', "controller\PostController@addPost");
 
 Macaw::post($URL_PATH . '/AddPost', "controller\PostController@comprobarPost");
+
+Macaw::get($URL_PATH . '/Seguidos', "controller\PostController@postSeguidos");
+
+Macaw::get($URL_PATH . '/Siguiendo/Pag/(:any)', "controller\PostController@postSeguidos");
 
 Macaw::get($URL_PATH . '/Perfil/(:any)/seguir', "controller\UsuarioController@seguirUsuario");
 

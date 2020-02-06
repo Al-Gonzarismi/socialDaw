@@ -1,5 +1,5 @@
 function likeClicked(postid) {
-    fetch("/SERVIDOR/TEMA03/socialdaw/Api/Like/"+postid)
+    fetch(URL_PATH+"/Api/Like/"+postid)
         .then(function (response) {
             return response.json()
         }).then (function (datos){
