@@ -33,6 +33,10 @@
         </div>
     </div>
 </div>
+<?php if ($_SESSION["rol"] == 1) :?>
+<a href="<?=$URL_PATH?>/Admin/borrarpost/<?=$post->id?>" class="btn btn-danger btn-sm">
+Eliminar Post</a>
+<?php endif ?>
 <hr>
 <?php require "Comentarios.phtml"; ?>
 <script>
