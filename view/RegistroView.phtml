@@ -9,8 +9,8 @@
 <form action="Registrate" method="POST">
   <div class="form-group">
     <label for="login">Login:</label>
-    <input type="text" class="form-control" id="login" name="login">
-  </div>
+    <input type="text" class="form-control" id="login" name="login" value="<?= $login ?>">
+  </div> <span style="color:red;">* <?= $errorLogin ?></span>
   <div class="form-group">
     <label for="contrasenha">Contraseña:</label>
     <input type="password" class="form-control" id="contrasenha" name="contrasenha">
@@ -18,7 +18,7 @@
   <div class="form-group">
     <label for="repitecontrasenha">Repite contraseña:</label>
     <input type="password" class="form-control" id="repitecontrasenha" name="repiteContrasenha">
-  </div>
+  </div><span style="color:red;">* <?= $errorContrasenha ?></span>
   <div class="form-group">
     <label for="nombre">Tu nombre:</label>
     <input type="text" class="form-control" id="nombre" name="nombre">

@@ -7,19 +7,48 @@ class UsuarioController extends Controller {
 
     public function registro() {
         $title = "Registro";
-        echo \dawfony\Ti::render("view/RegistroView.phtml", compact('title'));
+        $errorLogin = "";
+        $errorContrasenha = "";
+        $login = "";
+        $nombre = "";
+        $email = "";
+        echo \dawfony\Ti::render("view/RegistroView.phtml", compact('title', 'login', 'nombre', 'email', 'errorLogin', 'errorContrasenha'));
     }
 
     public function comprobarRegistro() {
         $usuario = new Usuario;
-        $usuario->login = $_POST["login"];
-        $usuario->contrasenha = password_hash($_POST["contrasenha"], PASSWORD_DEFAULT);
-        $usuario->nombre = $_POST["nombre"];
-        $usuario->email = $_POST["email"];
         $orm = new OrmUsuario;
-        $filasInsertadas = $orm->registrarUsuario($usuario);
+        $error = false;
+        $errorLogin = "";
+        $errorContrasenha = "";
+        $login = "";
+        $nombre = "";
+        $email = "";
         $title = "Registro";
-        echo \dawfony\Ti::render("view/RegistroView.phtml", compact('title', 'filasInsertadas'));
+        if ($orm->existeLogin($_POST["login"])) {
+            $error = true;
+            $errorLogin = "El login ya existe";
+        } else {
+            $login = $_POST["login"];
+            $usuario->login = $login;
+        }
+        if ($_POST["contrasenha"] == $_POST["repiteContrasenha"]) {
+            $usuario->contrasenha = password_hash($_POST["contrasenha"], PASSWORD_DEFAULT);
+        } else {
+            $error = true;
+            $errorContrasenha = "No coinciden las contraseñas";
+        }
+        $nombre = $_POST["nombre"];
+        $usuario->nombre = $nombre;
+        $email = $_POST["email"];
+        $usuario->email = $email;
+        if (!$error) {
+            $filasInsertadas = $orm->registrarUsuario($usuario);
+            $title = "Registro";
+            echo \dawfony\Ti::render("view/RegistroView.phtml", compact('title', 'filasInsertadas'));
+        } else {
+            echo \dawfony\Ti::render("view/RegistroView.phtml", compact('title', 'login', 'nombre', 'email', 'errorLogin', 'errorContrasenha'));
+        }
     }
 
     public function login() {
@@ -31,6 +60,7 @@ class UsuarioController extends Controller {
         global $URL_PATH;
         $login = $_POST["login"];
         $orm = new OrmUsuario;
+        $title = "Login";
         $contrasenhaValida = $orm->recibirContrasenha($login);
         if (password_verify($_POST["contrasenha"], $contrasenhaValida["password"])) {
             $title = "Listado";

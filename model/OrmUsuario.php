@@ -3,6 +3,13 @@ namespace model;
 use \dawfony\Klasto;
 class OrmUsuario
 {
+    public function existeLogin($login) {
+        $bd = Klasto::getInstance();
+        $params = [$login];
+        $sql = "SELECT login FROM usuario WHERE login = ?";
+        return $bd->queryOne($sql, $params);
+    }
+
     public function registrarUsuario($usuario) {
         $bd = Klasto::getInstance();
         $login = $usuario->login;

@@ -3,11 +3,13 @@
 <?php \dawfony\Ti::startBlock("content"); ?>
 <h2><?= $usuario->login ?></h2>
 <h5><?= $usuario->nombre ?></h5>
+<?php if (isset($_SESSION["login"])) {?>
 <?php $comprobacion = strtolower($_SESSION["login"]) != strtolower($usuario->login);?>
 <?php if ($_SESSION["rol"] == 1 && $comprobacion) :?>
 <a href="<?=$URL_PATH?>/Admin/borrarusuario/<?=$usuario->login?>" class="btn btn-danger btn-sm">
 Eliminar Usuario</a>
 <?php endif ?>
+<?php } ?>
 <p>
         <i class="fa fa-users"></i>
         <a href=#>Siguiendo</a> <span class="badge badge-secondary"><?= $siguiendo["cuenta"] ?></span>
